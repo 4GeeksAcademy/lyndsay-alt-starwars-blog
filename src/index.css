@@ -1,0 +1,4 @@
+.items-container {
+    width: 80%;
+    overflow-x: scroll;
+}
