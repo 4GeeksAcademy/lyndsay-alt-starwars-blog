@@ -1,10 +1,14 @@
 export const initialStore = () => {
   return {
     people: [
-      "https://www.swapi.tech/api/people"
+      "https://www.swapi.tech/api/people?expanded=true&limit=100&page=1",
     ],
-    planets: ["https://www.swapi.tech/api/planets"],
-    vehicles: ["https://www.swapi.tech/api/vehicles"],
+    planets: [
+      "https://www.swapi.tech/api/planets?expanded=true&limit=100&page=1",
+    ],
+    vehicles: [
+      "https://www.swapi.tech/api/vehicles?expanded=true&limit=100&page=1",
+    ],
     favorites: [],
     BASE_API_URL: "https://www.swapi.tech/api",
   };
@@ -25,15 +29,15 @@ export default function storeReducer(store, action = {}) {
       }
       return newStore;
     }
-    // case "add_task":
-    //   const { id, color } = action.payload;
+    case "add_task":
+      const { id, color } = action.payload;
 
-    //   return {
-    //     ...store,
-    //     todos: store.todos.map((todo) =>
-    //       todo.id === id ? { ...todo, background: color } : todo
-    //     ),
-    //   };
+      return {
+        ...store,
+        todos: store.todos.map((todo) =>
+          todo.id === id ? { ...todo, background: color } : todo
+        ),
+      };
     default:
       throw Error("Unknown action.");
   }
