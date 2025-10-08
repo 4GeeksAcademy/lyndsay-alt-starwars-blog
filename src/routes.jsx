@@ -8,6 +8,9 @@ import {
 import { Layout } from "./pages/Layout";
 import { Home } from "./pages/Home";
 import { Demo } from "./pages/Demo";
+import { SinglePerson } from "./pages/SinglePerson";
+import { SinglePlanet } from "./pages/SinglePlanet";
+import { SingleVehicle } from "./pages/SingleVehicle";
 
 
 export const router = createBrowserRouter(
@@ -24,6 +27,10 @@ export const router = createBrowserRouter(
         {/* Nested Routes: Defines sub-routes within the BaseHome component. */}
         <Route path= "/" element={<Home />} />
         <Route path="/demo" element={<Demo />} />
+        <Route path="/people/:id" element={<SinglePerson />} />
+        <Route path="/planets/:id" element={<SinglePlanet />} />
+        <Route path="/vehicles/:id" element={<SingleVehicle />} />
+      {/* Add more routes here as needed */}
       </Route>
     )
 );

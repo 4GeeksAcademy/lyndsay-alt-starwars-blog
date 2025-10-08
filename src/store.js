@@ -1,14 +1,8 @@
 export const initialStore = () => {
   return {
-    people: [
-      "https://www.swapi.tech/api/people?expanded=true&limit=100&page=1",
-    ],
-    planets: [
-      "https://www.swapi.tech/api/planets?expanded=true&limit=100&page=1",
-    ],
-    vehicles: [
-      "https://www.swapi.tech/api/vehicles?expanded=true&limit=100&page=1",
-    ],
+    people: [],
+    planets: [],
+    vehicles: [],
     favorites: [],
     BASE_API_URL: "https://www.swapi.tech/api",
   };
@@ -16,28 +10,29 @@ export const initialStore = () => {
 
 export default function storeReducer(store, action = {}) {
   switch (action.type) {
-    case "set_items": {
+    case "toggle_favorite":
+      const favortiteItem = store.favorites.find(
+        (favorite) => favorite.id == action.payload.id && favorite.nature === action.payload.nature );
+        if (!favoriteItem) {
+          return {
+            ...store,
+            favorites: [...store.favorites, action.payload],
+          };
+        }
+        return {
+          ...store,
+          favorites: store.favorites.filter(
+            (favorite) => favorite.id != action.payload.id || favorite.nature !== action.payload.nature
+          ),
+        };
+    case "set_items": 
       const nature = action.payload.nature;
       const items = action.payload.items;
-      const newStore = { ...store };
-      if (nature === "people") {
-        newStore.people = items;
-      } else if (nature === "planets") {
-        newStore.planets = items;
-      } else if (nature === "vehicles") {
-        newStore.vehicles = items;
-      }
+      const newStore = {...store};
+      if (nature === "people") { newStore.people = items; }
+      if (nature === "planets") { newStore.planets = items; }
+      if (nature === "vehicles") { newStore.vehicles = items; }
       return newStore;
-    }
-    case "add_task":
-      const { id, color } = action.payload;
-
-      return {
-        ...store,
-        todos: store.todos.map((todo) =>
-          todo.id === id ? { ...todo, background: color } : todo
-        ),
-      };
     default:
       throw Error("Unknown action.");
   }

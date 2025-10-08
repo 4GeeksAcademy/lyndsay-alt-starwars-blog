@@ -6,7 +6,7 @@ export const Home = () => {
   const { store, dispatch } = useGlobalReducer();
 
   function fetchItems(nature) {
-    fetch(`${store.BASE_API_URL}/${nature}?page=1&limit=100`)
+    fetch(`${store.BASE_API_URL}/${nature}?expanded=true&limit=100&page=1`)
       .then((response) => response.json())
       .then((body) => {
         dispatch({
@@ -18,7 +18,6 @@ export const Home = () => {
         });
       });
   }
- 
 
   useEffect(() => {
     fetchItems("people");
@@ -36,6 +35,7 @@ export const Home = () => {
               {store.people.map((people) => {
                 return (
                   <div
+                    key={people.uid}
                     className="card"
                     style={{ minWidth: "18rem", margin: "0 .5rem" }}
                   >
@@ -48,22 +48,35 @@ export const Home = () => {
                       alt="..."
                     />
                     <div className="card-body">
-                      <h5 className="card-title">{people.name}</h5>
+                      <h5 className="card-title">{people.properties.name}</h5>
                       <p className="card-text">
-                        gender: {people.gender}
+                        gender: {people.properties.gender}
                       </p>
                       <p className="card-text">
-                        species: {people.species}
+                        hair color: {people.properties.hair_color}
                       </p>
                       <p className="card-text">
-                        birth year: {people.birth_year}
+                        eye color: {people.properties.eye_color}
                       </p>
-                      <Link
-                        to={`/people/${people.id}`}
-                        className="btn btn-primary"
-                      >
-                        Learn More
-                      </Link>
+                      <div className="d-flex justify-content-between">
+                        <Link
+                          to={`/people/${people.uid}`}
+                          className="btn btn-primary"
+                        >
+                          Learn More
+                          <button
+                            className="btn btn-outline-warning"
+                            onClick={(event) =>
+                              dispatch({
+                                type: "toggle_favorite",
+                                payload: { id: people.id, name: people.name, nature: "people" },
+                              })
+                            }
+                          >
+                            ❤️
+                          </button>
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 );
@@ -81,6 +94,7 @@ export const Home = () => {
               {store.planets.map((planet) => {
                 return (
                   <div
+                    key={planet.uid}
                     className="card"
                     style={{ minWidth: "18rem", margin: "0 .5rem" }}
                   >
@@ -93,14 +107,15 @@ export const Home = () => {
                       alt="..."
                     />
                     <div className="card-body">
-                      <h5 className="card-title">{planet.name}</h5>
+                      <h5 className="card-title">{planet.properties.name}</h5>
                       <p className="card-text">
-                        population: {planet.population}
+                        population: {planet.properties.population}
                       </p>
-                      <p className="card-text">climate: {planet.climate}</p>
-                      <p className="card-text">terrain: {planet.terrain}</p>
+                      <p className="card-text">
+                        terrain: {planet.properties.terrain}
+                      </p>
                       <Link
-                        to={`/planets/${planet.id}`}
+                        to={`/planets/${planet.uid}`}
                         className="btn btn-primary"
                       >
                         Learn More
@@ -122,6 +137,7 @@ export const Home = () => {
               {store.vehicles.map((vehicle) => {
                 return (
                   <div
+                    key={vehicle.uid}
                     className="card"
                     style={{ minWidth: "18rem", margin: "0 .5rem" }}
                   >
@@ -134,14 +150,18 @@ export const Home = () => {
                       alt="..."
                     />
                     <div className="card-body">
-                      <h5 className="card-title">{vehicle.name}</h5>
-                      <p className="card-text">crew: {vehicle.crew}</p>
+                      <h5 className="card-title">{vehicle.properties.name}</h5>
                       <p className="card-text">
-                        vehicle_class: {vehicle.vehicle_class}
+                        crew: {vehicle.properties.crew}
                       </p>
-                      <p className="card-text">model: {vehicle.model}</p>
+                      <p className="card-text">
+                        vehicle_class: {vehicle.properties.vehicle_class}
+                      </p>
+                      <p className="card-text">
+                        model: {vehicle.properties.model}
+                      </p>
                       <Link
-                        to={`/vehicles/${vehicle.id}`}
+                        to={`/vehicles/${vehicle.uid}`}
                         className="btn btn-primary"
                       >
                         Learn More
