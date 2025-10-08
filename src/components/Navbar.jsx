@@ -29,9 +29,22 @@ export const Navbar = () => {
                 return (
                   <li
                     key={`${favorite.nature}-${favorite.id}`}
-                    className="dropdown-item"
+                    className="dropdown-item d-flex justify-content-between"
                   >
                     {favorite.name}
+                    <span
+                      onClick={() =>
+                        dispatch({
+                          type: "toggle_favorite",
+                          payload: {
+                            id: favorite.id,
+                            name: favorite.name,
+                          nature: favorite.nature,
+                        },
+                      })
+                    }>
+                      <i className="fa-solid fa-trash"></i>
+                    </span>
                   </li>
                 );
               })}

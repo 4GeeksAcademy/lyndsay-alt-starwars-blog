@@ -49,6 +49,7 @@ export const Home = () => {
                     />
                     <div className="card-body">
                       <h5 className="card-title">{people.properties.name}</h5>
+                      <hr></hr>
                       <p className="card-text">
                         gender: {people.properties.gender}
                       </p>
@@ -64,18 +65,22 @@ export const Home = () => {
                           className="btn btn-primary"
                         >
                           Learn More
-                          <button
-                            className="btn btn-outline-warning"
-                            onClick={(event) =>
-                              dispatch({
-                                type: "toggle_favorite",
-                                payload: { id: people.id, name: people.name, nature: "people" },
-                              })
-                            }
-                          >
-                            ❤️
-                          </button>
                         </Link>
+                        <button
+                          className="btn btn-outline-warning"
+                          onClick={(event) =>
+                            dispatch({
+                              type: "toggle_favorite",
+                              payload: {
+                                id: people.uid,
+                                name: people.properties.name,
+                                nature: "people",
+                              },
+                            })
+                          }
+                        >
+                          <i class="fa-regular fa-heart"></i>
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -108,18 +113,36 @@ export const Home = () => {
                     />
                     <div className="card-body">
                       <h5 className="card-title">{planet.properties.name}</h5>
+                      <hr></hr>
                       <p className="card-text">
                         population: {planet.properties.population}
                       </p>
                       <p className="card-text">
                         terrain: {planet.properties.terrain}
                       </p>
-                      <Link
-                        to={`/planets/${planet.uid}`}
-                        className="btn btn-primary"
-                      >
-                        Learn More
-                      </Link>
+                      <div className="d-flex justify-content-between">
+                        <Link
+                          to={`/planets/${planet.uid}`}
+                          className="btn btn-primary"
+                        >
+                          Learn More
+                        </Link>
+                        <button
+                          className="btn btn-outline-warning"
+                          onClick={(event) =>
+                            dispatch({
+                              type: "toggle_favorite",
+                              payload: {
+                                id: planet.uid,
+                                name: planet.properties.name,
+                                nature: "planet",
+                              },
+                            })
+                          }
+                        >
+                          <i class="fa-regular fa-heart"></i>
+                        </button>
+                      </div>
                     </div>
                   </div>
                 );
@@ -151,7 +174,8 @@ export const Home = () => {
                     />
                     <div className="card-body">
                       <h5 className="card-title">{vehicle.properties.name}</h5>
-                      <p className="card-text">
+                      <hr></hr>
+                      <p className="card-text ">
                         crew: {vehicle.properties.crew}
                       </p>
                       <p className="card-text">
@@ -160,12 +184,29 @@ export const Home = () => {
                       <p className="card-text">
                         model: {vehicle.properties.model}
                       </p>
-                      <Link
-                        to={`/vehicles/${vehicle.uid}`}
-                        className="btn btn-primary"
-                      >
-                        Learn More
-                      </Link>
+                      <div className="d-flex justify-content-between">
+                        <Link
+                          to={`/vehicles/${vehicle.uid}`}
+                          className="btn btn-primary"
+                        >
+                          Learn More
+                        </Link>
+                        <button
+                          className="btn btn-outline-warning"
+                          onClick={(event) =>
+                            dispatch({
+                              type: "toggle_favorite",
+                              payload: {
+                                id: vehicle.uid,
+                                name: vehicle.properties.name,
+                                nature: "vehicle",
+                              },
+                            })
+                          }
+                        >
+                          <i class="fa-regular fa-heart"></i>
+                        </button>
+                      </div>
                     </div>
                   </div>
                 );

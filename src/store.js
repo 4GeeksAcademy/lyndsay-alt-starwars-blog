@@ -11,7 +11,7 @@ export const initialStore = () => {
 export default function storeReducer(store, action = {}) {
   switch (action.type) {
     case "toggle_favorite":
-      const favortiteItem = store.favorites.find(
+      const favoriteItem = store.favorites.find(
         (favorite) => favorite.id == action.payload.id && favorite.nature === action.payload.nature );
         if (!favoriteItem) {
           return {
